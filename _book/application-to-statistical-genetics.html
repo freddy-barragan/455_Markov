@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics</title>
+  <meta name="description" content="Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="freddy-barragan/455_Markov" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics" />
+  
+  
+  
+
+<meta name="author" content="Freddy Barragan, Spring 2021, Macalester College" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hidden-markov-models.html"/>
+
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.3/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Hidden Markov Models</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="mathematical-intuition.html"><a href="mathematical-intuition.html"><i class="fa fa-check"></i><b>1</b> Mathematical Intuition</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mathematical-intuition.html"><a href="mathematical-intuition.html#conditional-probability-bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Conditional Probability &amp; Bayes Rule</a></li>
+<li class="chapter" data-level="1.2" data-path="mathematical-intuition.html"><a href="mathematical-intuition.html#markov-chains-the-markov-property"><i class="fa fa-check"></i><b>1.2</b> Markov Chains &amp; The Markov Property</a></li>
+<li class="chapter" data-level="1.3" data-path="mathematical-intuition.html"><a href="mathematical-intuition.html#video-resources"><i class="fa fa-check"></i><b>1.3</b> Video Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hidden-markov-models.html"><a href="hidden-markov-models.html"><i class="fa fa-check"></i><b>2</b> Hidden Markov Models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="hidden-markov-models.html"><a href="hidden-markov-models.html#hidden-markov-models-1"><i class="fa fa-check"></i><b>2.1</b> Hidden Markov Models</a></li>
+<li class="chapter" data-level="2.2" data-path="hidden-markov-models.html"><a href="hidden-markov-models.html#the-forward-backward-algorithm"><i class="fa fa-check"></i><b>2.2</b> The Forward-Backward Algorithm</a></li>
+<li class="chapter" data-level="2.3" data-path="hidden-markov-models.html"><a href="hidden-markov-models.html#limitations"><i class="fa fa-check"></i><b>2.3</b> Limitations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html"><i class="fa fa-check"></i><b>3</b> Application to Statistical Genetics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#local-ancestry-inference"><i class="fa fa-check"></i><b>3.1</b> Local Ancestry Inference</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#motivation"><i class="fa fa-check"></i><b>3.1.1</b> Motivation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#specific-application"><i class="fa fa-check"></i><b>3.1.2</b> Specific Application</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hidden Markov Models &amp; their Applications to Statistical Genetics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="application-to-statistical-genetics" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Application to Statistical Genetics</h1>
+<div id="local-ancestry-inference" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Local Ancestry Inference</h2>
+<div id="motivation" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Motivation</h3>
+<p>Definition of Admixture
+Definition of Local Ancestry</p>
+</div>
+<div id="specific-application" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Specific Application</h3>
+<ul>
+<li>Definition of Smoother Analysis</li>
+<li>HAPMIX</li>
+<li>Toy Transition Matrix</li>
+<li>Visualizing the Smoothing Process
+<ul>
+<li><a href="https://customercare.23andme.com/hc/en-us/articles/115004339467-How-Ancestry-Composition-Works">23andMe</a></li>
+<li>Re-using the Hipson Visualization (?)</li>
+<li>Re-using</li>
+</ul></li>
+</ul>
+<hr />
+<p><strong>References</strong></p>
+<p>Eddy, Sean. 2004. “What Is a Hidden Markov Model?,” October, 1315–1316. <a href="https://www.nature.com/articles/nbt1004-1315#citeas" class="uri">https://www.nature.com/articles/nbt1004-1315#citeas</a>.</p>
+<p>Helske, Satu, and Jouni Helske. 2019. “Mixture Hidden Markov Models for Sequence Data: The SeqHMM Package in R” 88: 1–32. <a href="http://dx.doi.org/10.18637/jss.v088.i03" class="uri">http://dx.doi.org/10.18637/jss.v088.i03</a>.</p>
+<p>Price, Alkes L., Arti Tandon, Nick Patterson, Kathleen C. Barnes, Nicholas Rafaels, Ingo Ruczinski, Terri H. Beaty, Rasika Mathias, David Reich, and Simon Myers. 2009. “Sensitive Detection of Chromosomal Segments of Distinct Ancestry in Admixed Populations.” PLoS Genet 5 (6): e1000519. <a href="https://doi.org/10.1371/journal.pgen.1000519" class="uri">https://doi.org/10.1371/journal.pgen.1000519</a>.</p>
+<p><br />
+</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hidden-markov-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["455_Markov.pdf", "455_Markov.html"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

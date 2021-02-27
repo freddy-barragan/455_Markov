@@ -1,0 +1,12 @@
+mathematical-intuition
+conditional-probability-bayes-rule
+markov-chains-the-markov-property
+video-resources
+hidden-markov-models
+hidden-markov-models-1
+the-forward-backward-algorithm
+limitations
+application-to-statistical-genetics
+local-ancestry-inference
+motivation
+specific-application

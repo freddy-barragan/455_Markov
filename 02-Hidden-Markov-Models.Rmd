@@ -1,0 +1,42 @@
+# Hidden Markov Models
+
+ 
+Motivations for HIdd
+
+
+## Hidden Markov Models
+ + Definition of **Hidden Markov Model**
+ Definition of Hidden States
+   - Definition of Observation Likelihoods
+   - Visual Intuition with family data and `seqHMM`
+   
+## The Forward-Backward Algorithm
+ + The Forward-Backward Algorithm
+   - Motivation: Given hidden states, find the likelihood of the observations
+   - Define connection between Bayes rule
+   - Define Joint Probability
+   - Walkthrough of Algorithm
+
+## Limitations 
+
+   
+
+
+
+---
+
+
+**References**
+
+Degirmenci, Alperen. 2014. “Introduction to Hidden Markov Models.” Harvard University. https://scholar.harvard.edu/files/adegirmenci/files/hmm_adegirmenci_2014.pdf.
+
+Eddy, Sean. 2004. “What Is a Hidden Markov Model?,” October, 1315–1316. https://www.nature.com/articles/nbt1004-1315#citeas.
+
+Helske, Satu, and Jouni Helske. 2019. “Mixture Hidden Markov Models for Sequence Data: The SeqHMM Package in R” 88: 1–32. http://dx.doi.org/10.18637/jss.v088.i03.
+
+Jurafsky, Dan, and James Martin. 2020. “Hidden Markov Models.” In Speech and Language Processing, 3rd ed. https://web.stanford.edu/~jurafsky/slp3/A.pdf.
+
+Kang, Eugine. 2017. “Hidden Markov Model.” Medium. August 31, 2017. https://medium.com/@kangeugine/hidden-markov-model-7681c22f5b9.
+
+
+\
