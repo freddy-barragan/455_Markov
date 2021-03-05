@@ -10,3 +10,7 @@ application-to-statistical-genetics
 local-ancestry-inference
 motivation
 specific-application
+conditional-probability
+basics
+markov-chains-properties
+markov-chains

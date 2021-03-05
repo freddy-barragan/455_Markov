@@ -9,6 +9,7 @@
 ### Specific Application
    - Definition of Smoother Analysis
    - HAPMIX
+   - 
    - Toy Transition Matrix
    - Visualizing the Smoothing Process
       * [23andMe](https://customercare.23andme.com/hc/en-us/articles/115004339467-How-Ancestry-Composition-Works)

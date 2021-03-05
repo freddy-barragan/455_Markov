@@ -2,34 +2,177 @@
 
 Markov Chains are cool! And Hidden Markov Models are even cooler! So, let's make sure you can get at the cool-stuff by starting off with the necessary basics. In this section, we'll review conditional probabilities & set up the basis for Hidden Markov Models by getting comfortable with chains first.
 
+\
+
+---
+
 ## Conditional Probability & Bayes Rule
 
-Probability, as a field, formalizes how we predict events with some equally beautiful & ugly notation, sharp concepts, and complex mathematical principles. 
-But the premise is simple: by ascribing a numeric value to the outcomes of an event happening, we can abstract the real-world and study it with math. This process of ascribing numeric values to the outcome of an event is called a mapping & by mapping all possible outcomes of an event we create a *random variable*.
+### Basic Concepts {-}
+
+Probability, as a field, formalizes how we predict events with some equally beautiful & ugly notation, inutitive concepts, and complex mathematical principles. But the premise is simple: by ascribing a numeric value to the outcomes of an event happening, we can abstract the real-world and study it with math. 
+
+The process of ascribing numeric values to the outcome of an event is called a mapping & by mapping all possible probabilities of an event's outcomes we create a **random variable**.
 
 > **NOTE:** This can be confusing! The "random" part of the word doesn't mean all outcomes have an equal chance of happening, really it means that within an event there are multiple possible outcomes.
 
-For example, let's say that the weather can either be sunny, rainy, or cloudy. We can then say that the weather is an event, $W$, with the outcomes $w_s,w_r,w_c$, respectively. However, by specifying the probabilities of each event we can turn $W$ into a random variable:
+\
+
+**Example: Weather & Temperature**
+
+Let's say that the weather is the event, $W$, whose only **outcomes** are sunny ($w_s$), rainy ($w_r$) or cloudy($w_c$). 
+By mapping numeric values (e.g. probabilities) to the outcomes we can turn $W$ into a random variable. Below, we list all mappings in the **probability mass function**, $p_{(W)}(w)$
 
 $$\begin{aligned} 
 p_{(W)}(w)  &= \begin{cases}
-    0.5, & \text{for } w_s \\
-    0.3, & \text{for } w_r \\
+    0.7, & \text{for } w_s \\
+    0.1, & \text{for } w_r \\
     0.2, & \text{for } w_c \\
     0.0, & \text{otherwise}
 \end{cases}
 \end{aligned}$$
 
-But what happens when the weather changes because of temperature, implying that weather is conditional on the outcome of temperature. Let's formalize 
+\
 
- + Definition of Conditional Probability
- + Definition of Bayes rule
- 
-## Markov Chains & The Markov Property
+Now, let's that the daily temperature (F°) is the event $T$. Normally, we could say that $T$ follows a normal distribution with $\mu = 75 \textbf{ F°}$ and $\sigma^2 = 625 \textbf{ F°}$, since its a continuous variable. So, $T \sim N(75, 625)$ and would look something like this
 
-**Markov Property**
+```{r, warning=FALSE, error=FALSE, message=FALSE, echo = FALSE, fig.width=5/1.5, fig.height=3/1.5}
+library(tidyverse)
+ggplot(data = data.frame(x = c(-25, 175)), aes(x)) +
+  stat_function(fun = dnorm, 
+                n = 1000,
+                args = list(mean = 75, sd = 25), 
+                color="black", size=1.5) + 
+  labs(y="Probabilities", title="Temperature (F°)", x="")+
+  scale_x_continuous(breaks = seq(0,150, by=25))+
+  theme_linedraw()+
+    theme(legend.position = "none", plot.title = element_text(hjust=.5))
+```
 
-**Markov Chains**
+\
+
+Instead, let's say that $T$ is a discrete random variable whose only potential outcomes are cold ($t_c$), fresh ($t_n$), or hot ($t_h$). Then, $T$ has the probability mass function
+
+$$\begin{aligned} 
+p_{(T)}(t)  &= \begin{cases}
+    0.155, & \text{for } t_c \\
+    0.5, & \text{for } t_f \\
+    0.345, & \text{for } t_h \\
+    0.0, & \text{otherwise}
+\end{cases}
+\end{aligned}$$
+
+\
+
+Below are two graphs summarizing what we know so far about $W$ and $T$ 
+
+```{r, warning=FALSE, error=FALSE, message=FALSE, echo = FALSE}
+data <- data.frame(probability = c(0.7, 0.1,0.2), temperature = c("Sunny", "Rainy", "Cloudy"))
+
+p1<-ggplot(data, aes(x=temperature, y=probability, fill=temperature)) +
+  geom_col()+
+  scale_fill_manual(values=c("#D5D5D3", "#85D4E3",  "#FAD77B"))+
+  labs(y="Probabilities", title="Weather", x="")+
+  theme_linedraw()+
+    theme(legend.position = "none", plot.title = element_text(hjust=.5))
+```
+
+```{r, warning=FALSE, error=FALSE, message=FALSE, echo = FALSE}
+data <- data.frame(probability = c(0.155, .5,.345), temperature = c("Cold", "Fresh", "Hot"))
+
+p2 <- ggplot(data, aes(x=temperature, y=probability, fill=temperature)) +
+  geom_col()+
+  scale_fill_manual(values=c("#3B9AB2", "#00A08A",  "#F1BB7B"))+
+  labs(y="Probabilities", title="Temperature", x="")+
+  theme_linedraw()+
+    theme(legend.position = "none", plot.title = element_text(hjust=.5))
+```
+
+```{r, warning=FALSE, error=FALSE, message=FALSE, echo = FALSE,  fig.width=5, fig.height=3/1.5}
+library(gridExtra)
+grid.arrange(p1,p2, ncol=2)
+```
+
+But what happens if the weather depends on the temperature? 
+
+\
+\
+
+### Conditional Probabilities {-}
+
+Let's study the two arbitrary events $A$, $B$ & learn some definitions about probability.
+
+**Conditional Probability:** 
+The conditional probabilities of $A$'s, given $B$ and $B$, given $A$ are written below.
+$$P(A|B) \hspace{1 in}P(B|A)$$
+\
+
+**Independence:** 
+We say that the two events, $A$ & $B$ are independent if the conditional probabilities provide us no new-information about either event. So, 
+
+$$P(A|B) = P(A) \hspace{1 in}P(B|A) = P(B)$$
+\
+
+**Joint Probability:** 
+The probability of two events, $A$ & $B$ happening at the same time is called a **joint probability** and is typically denoted by $P(A\cap B)$. It is calculated below.
+
+$$\begin{aligned} 
+P(A\cap B) &= P(A|B) \cdot P(B)\\
+&= P(A) \cdot P(B) && \text{if independent}
+\end{aligned}$$
+
+\
+\
+
+
+It's generally true that the weather on a particular day, depends on the temperature. This implies that $W$ and $T$ are conditional events with conditional probabilities. So, 
+
+$$P(W\mid T) \neq P(W)$$
+
+### Bayes' Rule & LOTP {-}
+
+Conceived by Reverend Thomas Bayes in the 18th Century, posthumously published by his friend Richard Price, and then formalized into an equation by Pierre-Simon Laplace, Bayes' Rule is a cornerstone equation in modern statistics & probability. I've written it below
+
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}=\frac{P(A)\cdot P(B|A)}{P(B)}$$
+
+> **NOTE**: Above you'll notice that we're looking at the probability of $A$ & $B$, divided by the probability of $B$. We are dividing by $P(B)$ to normalize & isolate the probability of $A$, under the conditions we observe $B$.
+
+> **Quick Check:** If $A$ & $B$ are independent, how would you further simplify the numerator of Bayes' Rule?
+
+
+The denominator of Bayes' Rule, $P(B)$ is called the **marginal probability** of $B$.
+
+The marginal probability can either be
+
+- given 
+- computed with the **law of total probability** or (**LOTP**). 
+
+**LOTP** states that
+$$\begin{aligned}
+P(B) = \sum_{i=1}^n P(B \cap A_i) &= P(B \cap A_1) + P(B\cap A_2) + \dots + P(B\cap A_n) \\
+&= P(B \mid A_1)P(A_1) + P(B\mid A_2)P(A_2) + \dots + P(B\mid A_n)P(A_n) \\
+\end{aligned}$$
+
+> **Note:** Looks scary! Really it's like calculating the probability of $B$ in each subcategory of $A$, multiplying by the probability of that sub-$A$, then adding it all together.
+
+\
+
+---
+
+## Markov Chains
+
+**Stochastic processes** are events which have some element of randomness in their outcomes. The amount of 'randomness' & the type of events can vary depending on the context. In turn, studying the properties of stochastic processes often requires the implementation of many different techniques which go well beyond the boundaries of statistics. And with a litany of applications across so many domains of knowledge, studying stochastic processes can involve Physics, Linguistics, Sociology, Public Health, Geography & more. 
+
+> **Note:** There is *some* nuance in the language we use to describe randomness, probabilistic, and stochastic, but it is murky. So, for now, let's stick with the above definition & some enjoy the interchangeability between random, stochastic, and probabilistic.
+
+So, this section will only be a teensy snippet of the wide topics covered in studying stochastic processes.
+
+### Markov Chains {-}
+
+Markov chains are a subclass of stochastic process which describe partially-random events occurring over time. In this section, we will look at Markov Chains, with some renewed interest in the weather.
+
++ Markov Property
+
 
 + State Space
 + Transition Probabilities & Matrices
@@ -38,8 +181,7 @@ But what happens when the weather changes because of temperature, implying that 
 **Visualizing a Markov Chain**
    - Will Hipson's [Dot Visualization](https://willhipson.netlify.app/post/markov-sim/markov_chain/) 
    
-```{r}
-library(tidyverse)
+```{r, warning=FALSE, error=FALSE, message=FALSE, echo = FALSE}
 library(wesanderson)
 library(plotly)
 set.seed(200322)
@@ -141,7 +283,12 @@ anim2
 ## Video Resources
 
 <iframe width="373" height="210" src="https://www.youtube.com/embed/VCyJGp6Enxg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+
+CIATION
+
 <iframe width="373" height="210" src="https://www.youtube.com/embed/JHwyHIz6a8A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+
+CITATION
    
 
 <br>
