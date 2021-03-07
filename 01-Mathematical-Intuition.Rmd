@@ -161,22 +161,29 @@ P(B) = \sum_{i=1}^n P(B \cap A_i) &= P(B \cap A_1) + P(B\cap A_2) + \dots + P(B\
 
 ## Markov Chains
 
-**Stochastic processes** are events which have some element of randomness in their outcomes. The amount of 'randomness' & the type of events can vary depending on the context. In turn, studying the properties of stochastic processes often requires the implementation of many different techniques which go well beyond the boundaries of statistics. And with a litany of applications across so many domains of knowledge, studying stochastic processes can involve Physics, Linguistics, Sociology, Public Health, Geography & more. 
+**Stochastic processes** are events which have some element of randomness in their outcomes. The amount of 'randomness' & the type of events can vary depending on the context. In turn, studying the properties of stochastic processes often requires many different techniques which go well beyond the boundaries of statistics. And with a litany of applications across so many domains of knowledge, studying stochastic processes also involves many techniques from Physics, Linguistics, Sociology, Public Health, Geography & more. 
 
 > **Note:** There is *some* nuance in the language we use to describe randomness, probabilistic, and stochastic, but it is murky. So, for now, let's stick with the above definition & some enjoy the interchangeability between random, stochastic, and probabilistic.
 
-So, this section will only be a teensy snippet of the wide topics covered in studying stochastic processes.
+So, this section will only be a tiny snippet of the wide topics covered in studying stochastic processes.
 
-### Markov Chains {-}
+### Intuition {-}
 
-Markov chains are a subclass of stochastic process which describe partially-random events occurring over time. In this section, we will look at Markov Chains, with some renewed interest in the weather.
+Markov chains are a subclass of stochastic processes which describe partially-random events occurring over time, typically in succession. We will formalize this definition soon, but for now let's talk about the weather.
 
-+ Markov Property
+*Example: Weather*
 
+Let's ignore the fact that temperature determines weather. Instead, let's assume that we can compute the probability of tomorrow's weather by only looking at today's. This results in three important ideas:
 
-+ State Space
-+ Transition Probabilities & Matrices
-   
+- General weather patterns before today are irrelevant when predicting the tomorrow's weather. This is an example of a Markov process, more specifically a Markov Chain.
+- The outcomes of the weather are rainy, sunny, or cloudy. These are examples of states.
+- The probability of tomorrow's weather depends on whether it was rainy, sunny, or cloudy to day. Meaning there are probabilities associated with tomorrow's events, strictly defined by today's. These are examples of transition probabilities.
+
+Let's be rigorous now!
+
+### Markov Chain {-}
+
+Let X_i successive time-indexed events is a **Markov Chain**. There are 
    
 **Visualizing a Markov Chain**
    - Will Hipson's [Dot Visualization](https://willhipson.netlify.app/post/markov-sim/markov_chain/) 
