@@ -14,3 +14,7 @@ conditional-probability
 basics
 markov-chains-properties
 markov-chains
+conclusion
+additional-resources
+definitions
+motivation-1

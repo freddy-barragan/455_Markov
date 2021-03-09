@@ -27,7 +27,7 @@ Content was written and gathered by [Freddy Barragan]("https://freddybarragan.ne
 
 <br>
 **Note:**
-I assume no mathematical background, but you shouldn't need much! If any equations look scary, feel free to skip over to the written content :)
+I assume minimal mathematical background. If any equations or definitions look scary, feel free to skip over to the written content :)
 
 <br>
 <br>

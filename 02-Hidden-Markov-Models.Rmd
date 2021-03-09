@@ -1,10 +1,36 @@
 # Hidden Markov Models
 
- 
-Motivations for HIdd
+In this section, we'll go through the theoretical definitions & algorithms associated with Hidden Markov Models (**HMM**s) and finally get at proving the claim that they're cooler than Markov Chains. Let's begin with some applied motivation.
+
+## Motivation
+
+Previously, we wanted to study the weather. Let's up the stakes and now look at how the weather can determine whether or not a small frog-family survives the week in California. 
+
+<center>
+![](images/froggy.jpg)
+</center>
+
+If you were a frog, you wouldn't be able to check the weather before leaving your tree hide-- you wouldn't even be able to read!-- but you do know that if you left while it was 
+
+- sunny, you'd dry up in an instant & die with 100% certainty
+- cloudy, you would have a 75% chance of living (and eating a nice bug) with a 25% chance of dying due to predators in the area
+- rainy, you would have a 95% chance of living (and eating a nice bug) with a 5% chance of dying due to predators in the area
+
+Let's say your frog-dad went out and came back (with a nice bug), but now you're very curious about the weather outside and want to predict it somehow.
+
+Since we, as non-frog statisticians, know that the weather is a Markov Chain, we can say this frog-family has stumbled into a Hidden Markov Model. In the following section, we will establish what that implies theoretically & for our little frog family.
+
+## Definitions
 
 
-## Hidden Markov Models
+Hidden Markov Models are a class of probabilistic models which model Markov processes whose outcomes cannot be solely predicted using the observed, discrete, events ($Y_n$), as is the case for Markov chains. Instead, we must use the set of hidden, discrete, events ($X_n$). This implies 4 things for the set of events, $X_n$ & $Y_n$:
+
+- Discreteness: Both $X_n$ and $Y_n$ are sequential, discrete, random variables.
+- Markov Process: $X_n$ must have a Markov process. That is, $P(X_{n+1}|X_1, ..., X_n) = P(X_{n+1}|X_n)$
+- Hiddenness: $X_n$ are not observable.
+- Outcome Probabilities: The outcome probabilities of a state at a certain point are solely dependent on hidden states at the same point. That is $P(Y_{n}|Y_i, ..., Y_n, X_1, ..., X_n) = P(Y_{n}|X_n)$
+
+
  + Definition of **Hidden Markov Model**
  Definition of Hidden States
    - Definition of Observation Likelihoods
