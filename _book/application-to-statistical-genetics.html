@@ -112,6 +112,7 @@
 <li class="chapter" data-level="" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#local-ancestry"><i class="fa fa-check"></i>Local Ancestry</a></li>
 <li class="chapter" data-level="" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#hapmix"><i class="fa fa-check"></i>HAPMIX</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#conclusion-more"><i class="fa fa-check"></i>Conclusion &amp; More</a></li>
 <li class="chapter" data-level="" data-path="application-to-statistical-genetics.html"><a href="application-to-statistical-genetics.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -136,7 +137,7 @@
             <section class="normal" id="section-">
 <div id="application-to-statistical-genetics" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Application to Statistical Genetics</h1>
-<p>The goals of epidemiology explicitly revolve around studying the incidence, distribution, and control of disease. As one can imagine, the boundaries of the field are highly nebulous. With substantial crossovers between history, biology, mathematics and so many seemingly disparate fields, epidemiology provides limitless insight in human development &amp; connection. So far, we’ve looked at Hidden Markov Models as mathematical objects, devoid of any real context— aside from a toy frog example. This section intends to tie together the mathematical principals of <strong>HMM</strong>s with their connections to big areas in biostatistical &amp; epidemiological research. We find that, yes, <strong>HMM</strong>s <em>are</em> cool because they can help save lives, bridge the gaps across survival disparities, and study our bodies.</p>
+<p>The goals of epidemiology explicitly revolve around studying the incidence, distribution, and control of disease. As one can imagine, the boundaries of the field are highly nebulous. So far, we’ve looked at Hidden Markov Models as mathematical objects, devoid of any real context— aside from a toy frog example. This section intends to tie together the mathematical principals of HMMs with their connections to big areas in biostatistical &amp; epidemiological research. We find that, yes, HMMs <em>are</em> cool because they can help save lives, bridge the gaps across survival disparities, and study our bodies.</p>
 <p><br />
 </p>
 <hr />
@@ -148,20 +149,28 @@
 <p><strong>NOTE:</strong> Ancestry &amp; Race are two different concepts that do not measure the same thing in the same way.</p>
 </blockquote>
 <p>Admixed populations are products of the intense migratory &amp; diasporic events which marked the 14th-19th centuries, which resulted in populations whose genetic ancestries were from 2 or more human sub-populations. We call these ancestrally-mixed populations <strong>admixed</strong> populations. Notable examples of admixed populations include African Americans, Latines, Ashkenazi Jews, and SWANA peoples. However, admixture is everpresent across most global populations. For example, this plot made by Hodgson et al. shows the admixture proportion across 81 different African populations with colorings for 10, 11, and 12 respective common ancestries.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<p><br />
+</p>
+<center>
 <div class="figure">
 <img src="images/map.png" alt="" />
-<p class="caption">Figure 2. Population structure of Horn of Africa populations in a broad context.</p>
+<p class="caption">Figure 1. Admixture proportions of Horn of Africa populations (Hodgson et al.)</p>
 </div>
+</center>
+<p><br />
+</p>
 <p>Unfortunately, the violence of diaspora, colonialism, and enslavement also brought the dangers of inheriting potentially dangerous mutations by family, ancestry, or ethnicity. For example, the inheritance of Tay-Sachs, Ellis-van Creveld Syndrome, diabetes, prostate cancer all occur with strong associations to ancestry<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
 <p>So, when studying disease with evidence of some ancestral association, LAI allows public researchers to first map the ancestry of an individual’s genome, before going on to find associations between disease &amp; ancestral lineage.</p>
 <div id="local-ancestry" class="section level3 unnumbered">
 <h3>Local Ancestry</h3>
 <p>Local Ancestry is formally defined as “the genetic ancestry of an individual at a particular chromosomal location, where an individual can have 0, 1 or 2 copies of an allele derived from each ancestral population.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>”</p>
-<p>Due to the structure of gene inheritance, we can model local ancestry as a Hidden Markov Model, with the observed! This idea has been formalized throughout literature on statistical genetics, but we will look at one particular approach of using <strong>HMM</strong>s in the software HAPMIX to infer local ancestry in admixed populations.</p>
+<p>Due to the structure of gene inheritance, we can model local ancestry as a Hidden Markov Model, with the observed! This idea has been formalized throughout literature on statistical genetics, but we will look at one particular approach of using HMMs in the software HAPMIX to infer local ancestry in admixed populations.</p>
 </div>
 <div id="hapmix" class="section level3 unnumbered">
 <h3>HAPMIX</h3>
-<p>Much of this section originates from HAPMIX’s official release paper<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Most content in this section originates from HAPMIX’s official release paper by Price et al<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
+</blockquote>
 <p><strong>Definitions</strong></p>
 <ul>
 <li>A haplotype is a gene that is solely inherited from one parent and thus one parental population. Haplotypes are generally considered good markers of ancestral lineage.</li>
@@ -174,19 +183,43 @@
 </ul>
 <p><strong>Process</strong></p>
 <ol style="list-style-type: decimal">
-<li><p>At every locus, HAPMIX estimates the likelihood that a haplotype from an admixed individual is a better statistical match to one reference population over the other.</p></li>
-<li><p>Since the likelihood of loci at position are dependent, but all others are independent, we can use a HMM where the hidden states are the number of ancestral genes inherited (0,1,2) and the outcomes are are the likelihoods of the locus at position <span class="math inline">\(s\)</span>.</p></li>
-<li><p>Using a smoother analysis, similar to the Foward-Backward Algorithm, we can combine these likelihoods into to provide a probabilistic estimate of ancestry at each locus.</p></li>
+<li><p>At every locus, HAPMIX estimates the likelihood that a “parental” haplotype from an admixed individual comes from a referenced ancestral population.</p></li>
+<li><p>Loci that are next to each other are more likely to come from the same ancestral lineage<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, but that doesn’t hold true after enough positions. So, we say that the number of genes inherited from an ancestral population at the <span class="math inline">\(j^th\)</span> locus, can be strictly predicted by the ancestry of the <span class="math inline">\({j-1}^{th}\)</span> locus.</p></li>
+<li><p>We can then use a HMM where the hidden states are the number of ancestral genes inherited <span class="math inline">\((0,1,2)\)</span> at locus <span class="math inline">\(j\)</span> and the observations are the likelihoods of observing some mutation at locus <span class="math inline">\(j\)</span>, given the ancestral reference panel.</p></li>
+<li><p>Using a smoother analysis, similar to the Forward-Backward Algorithm, we can combine these likelihoods into to provide a probabilistic estimate of ancestry at each locus.</p></li>
 </ol>
+<p><strong>Visual</strong></p>
+<p>Below is a visual made by Price et al. describing the HMM employed in HAPMIX.</p>
+<center>
+<div class="figure">
+<img src="images/hapmix.png" alt="" />
+<p class="caption">Fig 2. Markov Schematic (Price et al.)</p>
+</div>
+</center>
+<ul>
+<li>The thick bottom bar represents the true 2-state ancestral composition of an individual, the dotted line above it represents the ancestral reference panel, from which we compute likelihoods.</li>
+<li>The line line represents a chromosomal segment of an individual, while the black circles represent typed mutations sites that can be distinguished between the ancestries.</li>
+<li>When the yellow line crosses a red or blue line, it is visualizing the selection of an ancestral group, given the individual’s observed chromosome. Notice that when the line crosses through a dot on one particular side, it will choose the side with equal or greater dots that are vertically aligned.</li>
+<li>The yellow line can misclassify the ancestries, since this is a probabilistic model. Notice the portion of blue dots above the red bar.</li>
+</ul>
+</div>
+</div>
+<div id="conclusion-more" class="section level2 unnumbered">
+<h2>Conclusion &amp; More</h2>
+<p>LAI is only one application of HMMs. Variations of HMMs can be used to study the differential use of condoms for HIV prevention<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, the race-differences in the progression of HIV for vulnerable, infected, and AIDS positive people between African American &amp; White People<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>, or even when automatically monitoring the development of Influenza outbreaks<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
+<p>This is only a primer (with a de-emphasis on application), but I absolutely suggest reading through the footnote references to so how cool HMMs become when using them to find ways of helping people, treating illness, and more!</p>
 <p><br />
 </p>
-</div>
 </div>
 <div id="references-2" class="section level2 unnumbered">
 <h2>References</h2>
 
 </div>
 </div>
+
+
+
+
 
 
 
@@ -213,6 +246,10 @@
 <li id="fn7"><p><a href="https://pubmed.ncbi.nlm.nih.gov/20594047/" class="uri">https://pubmed.ncbi.nlm.nih.gov/20594047/</a><a href="application-to-statistical-genetics.html#fnref7" class="footnote-back">↩︎</a></p></li>
 <li id="fn8"><p><a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/gepi.21819" class="uri">https://onlinelibrary.wiley.com/doi/abs/10.1002/gepi.21819</a><a href="application-to-statistical-genetics.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p><a href="https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000519" class="uri">https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000519</a><a href="application-to-statistical-genetics.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>due to a concept called Linkage Disequilibrium<a href="application-to-statistical-genetics.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649016/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649016/</a><a href="application-to-statistical-genetics.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4023279/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4023279/</a><a href="application-to-statistical-genetics.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p><a href="https://link.springer.com/chapter/10.1007/978-3-540-45231-7_48" class="uri">https://link.springer.com/chapter/10.1007/978-3-540-45231-7_48</a><a href="application-to-statistical-genetics.html#fnref13" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

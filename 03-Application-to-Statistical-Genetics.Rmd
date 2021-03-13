@@ -1,4 +1,4 @@
-# An application to Statistical Genetics
+# Application to Statistical Genetics
 
 The goals of epidemiology explicitly revolve around studying the incidence, distribution, and control of disease. As one can imagine, the boundaries of the field are highly nebulous. So far, we've looked at Hidden Markov Models as mathematical objects, devoid of any real context— aside from a toy frog example. This section intends to tie together the mathematical principals of HMMs with their connections to big areas in biostatistical & epidemiological research. We find that, yes, HMMs *are* cool because they can help save lives, bridge the gaps across survival disparities, and study our bodies.
 
