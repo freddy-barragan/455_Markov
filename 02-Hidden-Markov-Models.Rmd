@@ -262,7 +262,7 @@ What a nice way of looking at the relationship between emission probabilities an
 ---
 
 
-## Likelihood & The Forward-Backward Algorithm
+## Algorithms
 
 Let's say the frog-family has been really lucky and all the frogs who left the tree-hide in the past week came back! One very curious, frog named Betsy wonders what the probability of all her family surviving, given the weather.
 

@@ -83,7 +83,7 @@ Below is a visual made by Price et al. describing the HMM employed in HAPMIX.
 - The yellow line can misclassify the ancestries, since this is a probabilistic model. Notice the portion of blue dots above the red bar.
 
 
-## Conclusion & More {-}
+### Conclusion
 
 LAI is only one application of HMMs. Variations of HMMs can be used to study the differential use of condoms for HIV prevention^[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649016/], the race-differences in the progression of HIV for vulnerable, infected, and AIDS positive people between African American & White People^[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4023279/], or even when automatically monitoring the development of Influenza outbreaks^[https://link.springer.com/chapter/10.1007/978-3-540-45231-7_48]. 
 
