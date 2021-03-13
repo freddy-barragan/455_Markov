@@ -130,26 +130,40 @@
 <p>In this section, we’ll go through the theoretical definitions &amp; algorithms associated with Hidden Markov Models (<strong>HMM</strong>s) and finally get at proving the claim that they’re cooler than Markov Chains. Let’s begin with some applied motivation.</p>
 <div id="motivation" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Motivation</h2>
-<p>Previously, we wanted to study the weather. Let’s up the stakes and now look at how the weather can determine whether or not a small frog-family survives the week in California.</p>
+<p>Previously, we wanted to study the weather. Let’s up the stakes and now look at how the weather can determine whether or not a cute frog-family survives the week in California.</p>
 <center>
-<img src="images/froggy.jpg" />
+<img src="images/froggy.jpg" id="id" class="class" style="width:60.0%;height:60.0%" />
 </center>
 <p>If you were a frog, you wouldn’t be able to check the weather before leaving your tree hide– you wouldn’t even be able to read!– but you do know that if you left while it was</p>
 <ul>
-<li>sunny, you’d dry up in an instant &amp; die with 100% certainty</li>
-<li>cloudy, you would have a 75% chance of living (and eating a nice bug) with a 25% chance of dying due to predators in the area</li>
-<li>rainy, you would have a 95% chance of living (and eating a nice bug) with a 5% chance of dying due to predators in the area</li>
+<li><strong>Sunny:</strong> you’d dry up in an instant &amp; die with 100% certainty.</li>
+<li><strong>Cloudy:</strong> you would have a 75% chance of living (and eating a nice bug) with a 25% chance of dying due to predators in the area</li>
+<li><strong>Rainy:</strong> you would have a 90% chance of living (and eating a nice bug) with a 10% chance of dying due to predators in the area</li>
 </ul>
 <p>Let’s say your frog-dad went out and came back (with a nice bug), but now you’re very curious about the weather outside and want to predict it somehow.</p>
-<p>Since we, as non-frog statisticians, know that the weather is a Markov Chain, we can say this frog-family has stumbled into a Hidden Markov Model. In the following section, we will establish what that implies theoretically &amp; for our little frog family.</p>
+<p>Since we, as non-frog statisticians, know that the weather is a Markov Chain, we can say this frog-family has stumbled into a Hidden Markov Model. In the following section, we will establish what that implies theoretically for us &amp; our little frog family.</p>
 </div>
 <div id="definitions" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Definitions</h2>
-<p>Hidden Markov Models are a class of probabilistic models which model Markov processes whose outcomes cannot be solely predicted using the observed, discrete, events (<span class="math inline">\(Y_n\)</span>), as is the case for Markov chains. Instead, we must use the set of hidden, discrete, events (<span class="math inline">\(X_n\)</span>). This implies 4 things for the set of events, <span class="math inline">\(X_n\)</span> &amp; <span class="math inline">\(Y_n\)</span>:</p>
+<p>Hidden Markov Models are another class of probabilistic models which model Markov processes whose outcomes (<span class="math inline">\(X_n\)</span>) cannot be directly observed, but their dependent observed events (<span class="math inline">\(Y_n\)</span>) can be. Often, we’re never particularly interested in the <span class="math inline">\(Y_n\)</span>, but we can use them to make good inferences in the <span class="math inline">\(X_n\)</span>.</p>
+<p>Intuitively, it’s like using the shadow of an animal, to guess what it is!</p>
+<center>
+<img src="images/frogshadow.png" id="id" class="class" style="width:60.0%;height:60.0%" />
+</center>
+<p>Neither <span class="math inline">\(X_n\)</span> or <span class="math inline">\(Y_n\)</span> <em>must</em> be a discrete event, but this project is explicitly dedicated to discrete-time Hidden Markov Models, so we will assume they all are.</p>
+<blockquote>
+<p><strong>Note:</strong> If you’re interested in continuous-time Markov Chains or <strong>HMM</strong>s check this textbook <a href="hdbfjjerjhvefdbjhdfbjhdbjhdfbjhf">out</a>!</p>
+</blockquote>
+<p>This implies some rules for the set of events, <span class="math inline">\(X_n\)</span> &amp; <span class="math inline">\(Y_n\)</span>:</p>
 <ul>
-<li><p>Discreteness: Both <span class="math inline">\(X_n\)</span> and <span class="math inline">\(Y_n\)</span> are sequential, discrete, random variables.</p></li>
-<li><p>Markov Process: <span class="math inline">\(X_n\)</span> must have a Markov process. That is, <span class="math inline">\(P(X_{n+1}|X_1, ..., X_n) = P(X_{n+1}|X_n)\)</span></p></li>
-<li><p>Hiddenness: <span class="math inline">\(X_n\)</span> are not observable.</p></li>
+<li><p><strong>Discreteness:</strong></p></li>
+<li><p>Both <span class="math inline">\(X_n\)</span> and <span class="math inline">\(Y_n\)</span> are sequential, discrete, random variables.</p></li>
+<li><p><strong>Markov Process:</strong></p></li>
+<li><p><span class="math inline">\(X_n\)</span> <em>must</em> be a Markov chain with known transition probabilities. So, <span class="math display">\[P(X_{n+1} = x_{n+1}|X_1 = x_1, \dots,  X_{n-1}= x_{n-1}, X_n= x_{n}) = P(X_{n+1} = x_{n+1}|X_n = x_n)\]</span></p></li>
+<li><p><strong>Hidden &amp; Observable Events:</strong></p></li>
+<li><p>The outcomes/states of the <span class="math inline">\(X_n\)</span> are unknown, but we do know their total <strong>State Space</strong>.</p></li>
+<li><p>We can observe the outcomes of the <span class="math inline">\(Y_n\)</span> and their total <strong>State Space</strong>.</p></li>
+<li><p><strong>Emission &amp; Transition Probabilities:</strong></p></li>
 <li><p>Outcome Probabilities: The outcome probabilities of a state at a certain point are solely dependent on hidden states at the same point. That is <span class="math inline">\(P(Y_{n}|Y_i, ..., Y_n, X_1, ..., X_n) = P(Y_{n}|X_n)\)</span></p></li>
 <li><p>Definition of <strong>Hidden Markov Model</strong>
 Definition of Hidden States</p>

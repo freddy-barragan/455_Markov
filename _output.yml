@@ -1,5 +1,5 @@
 bookdown::gitbook:
-  highlight: espresso
+  highlight: tango
   css: style.css
   config:
     toc:

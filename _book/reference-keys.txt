@@ -18,3 +18,10 @@ conclusion
 additional-resources
 definitions
 motivation-1
+frog-families-hmms
+example
+likelihood-the-forward-backward-algorithm
+conclusion-1
+conclusion-2
+references-2
+an-application-to-statistical-genetics

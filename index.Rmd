@@ -4,6 +4,7 @@ author: "Freddy Barragan, Spring 2021, Macalester College"
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
+    highlight: tango
     config:
       sharing:
         facebook: false
@@ -21,13 +22,13 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align 
 
 # Welcome {-}
 
-This is bookdown on discrete Hidden Markov Models & their applications to statistical genetics is my capstone! I made this for my Mathematical Statistics course taught by [Kelsey Grinde]("http://kegrinde.github.io"). Big thanks to her for her guidance and help.
+This is bookdown on discrete Hidden Markov Models & their applications to biostatistics is my capstone! I made this for my Mathematical Statistics course taught by [Kelsey Grinde]("http://kegrinde.github.io"). Big thanks to her for her guidance and help.
 
-Content was written and gathered by [Freddy Barragan]("https://freddybarragan.netlify.app") with appropriate citations for referenced materials. 
+Content was written and gathered by [Freddy Barragan]("https://freddybarragan.netlify.app") with appropriate citations for print materials *or* direct links web materials. Embedded Youtube videos are under the sole ownership of their linked creator. 
 
 <br>
 **Note:**
-I assume minimal mathematical background. If any equations or definitions look scary, feel free to skip over to the written content :)
+- This is a very brief primer & I assume minimal mathematical background.
 
 <br>
 <br>

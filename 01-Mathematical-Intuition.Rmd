@@ -1,6 +1,6 @@
 # Mathematical Intuition
 
-Markov Chains are cool! And Hidden Markov Models are even cooler! So, let's make sure you can get at the cool-stuff by starting off with the necessary basics. In this section, we'll review conditional probabilities & set up the basis for Hidden Markov Models by getting comfortable with chains first.
+Markov Chains are cool! Hidden Markov Models are also cool, but require more preparation! In this section, we'll go through conditional probabilities & set up the basis to study Hidden Markov Models by getting comfortable with chains first.
 
 \
 
@@ -108,20 +108,20 @@ Let's study the two arbitrary events $A$, $B$ & learn some definitions about pro
 
 **Conditional Probability:** 
 The conditional probabilities of $A$'s, given $B$ and $B$, given $A$ are written below.
-$$P(A|B) \hspace{1 in}P(B|A)$$
+$$P(A \mid B) \hspace{1 in}P(B \mid A)$$
 \
 
 **Independence:** 
 We say that the two events, $A$ & $B$ are independent if the conditional probabilities provide us no new-information about either event. So, 
 
-$$P(A|B) = P(A) \hspace{1 in}P(B|A) = P(B)$$
+$$P(A \mid B) = P(A) \hspace{1 in}P(B \mid A) = P(B)$$
 \
 
 **Joint Probability:** 
 The probability of two events, $A$ & $B$ happening at the same time is called a **joint probability** and is typically denoted by $P(A\cap B)$. It is calculated below.
 
 $$\begin{aligned} 
-P(A\cap B) &= P(A|B) \cdot P(B)\\
+P(A\cap B) &= P(A \mid B) \cdot P(B)\\
 &= P(A) \cdot P(B) && \text{if independent}
 \end{aligned}$$
 
@@ -135,14 +135,13 @@ $$P(W\mid T) \neq P(W)$$
 
 ### Bayes' Rule & LOTP {-}
 
-Conceived by Reverend Thomas Bayes in the 18th Century, posthumously published by his friend Richard Price, and then formalized into an equation by Pierre-Simon Laplace, Bayes' Rule is a cornerstone equation in modern statistics & probability. I've written it below
+Conceived by Reverend Thomas Bayes in the 18th Century, posthumously published by his friend Richard Price, and then formalized into an equation by Pierre-Simon Laplace, Bayes' Rule is a cornerstone equation in modern statistics & probability^[https://www.bayesrulesbook.com/chapter-1.html#a-quick-history-lesson]. I've written Bayes Rule below^[https://www.bayesrulesbook.com/chapter-2.html]
 
-$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}=\frac{P(A)\cdot P(B|A)}{P(B)}$$
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}=\frac{P(A)\cdot P(B \mid A)}{P(B)}$$
 
 > **NOTE**: Above you'll notice that we're looking at the probability of $A$ & $B$, divided by the probability of $B$. We are dividing by $P(B)$ to normalize & isolate the probability of $A$, under the conditions we observe $B$.
 
 > **Quick Check:** If $A$ & $B$ are independent, how would you further simplify the numerator of Bayes' Rule?
-
 
 The denominator of Bayes' Rule, $P(B)$ is called the **marginal probability** of $B$.
 
@@ -173,7 +172,7 @@ So, this section will only be a tiny snippet of the wide topics covered in study
 
 ### Intuition {-}
 
-Markov chains are a subclass of stochastic processes which describe partially-random events occurring over time, typically in succession. We will formalize this definition soon, but for now let's talk about the weather.
+Markov chains are a subclass of stochastic processes which describe partially-random events occurring in succession, typically in succession. We will formalize this definition soon, but for now let's talk about the weather.
 
 **Example: Weather**
 
@@ -187,22 +186,22 @@ Let's be rigorous now!
 
 ### Mathematical Definitions {-}
 
-Let $X_n = X_1, \dots, X_{n-1}, X_n$ be a collection of successive time-indexed event outcomes. 
+Let $X_i = X_1, \dots, X_{n-1}, X_n$ be a collection of $n$ successively indexed events.
 
-The $X_i$ are a discrete **Markov Chain** if 
+The discrete $X_i$ are a **Markov Chain** if 
 
 
 - They exhibit a **Markov Property**.
   + Where the probability of some new or predicted event $X_{n+1}=x_{n+1}$ is 
 
-$$P(X_{n+1} = x_{n+1}|X_1 = x_1, \dots,  X_{n-1}= x_{n-1}, X_n= x_{n}) = P(X_{n+1} = x_{n+1}|X_n = x_n)$$
+$$P(X_{n+1} = x_{n+1} \mid X_1 = x_1, \dots,  X_{n-1}= x_{n-1}, X_n= x_{n}) = P(X_{n+1} = x_{n+1} \mid X_n = x_n)$$
 
 > **NOTE:** This is similar to the conditional probability of independent events! But instead we specify that prior events $X_1,\dots X_{n-1}$ are independent of the outcome of $X_{n+1}$, but $X_{n}$ is not.
 
 \
 
 - There is some countable set of outcomes called the **State Space** which contains every possible outcome or **State** 
-  + The outcomes $x_1, \dots, x_{n-1}, x_{n}, x_{n+1}$ are all common elements of $\mathbb{S}$.
+  + The outcomes $x_1, \dots, x_{n-1}, x_{n}, x_{n+1}$ are all common elements of the state space, $\mathbb{S}$.
 
 > **NOTE:** This may seem complicated, but this means we can define what are possible and impossible outcomes.
 
@@ -213,6 +212,8 @@ $$P(X_{n+1} = x_{n+1}|X_1 = x_1, \dots,  X_{n-1}= x_{n-1}, X_n= x_{n}) = P(X_{n+
   + Transition Probabilities sum to 1 because they cumulatively define the *probability mass function* of the transition from each state to another.
   + These probabilities can be placed in a **Transition Matrix** where the columns indicate a next state & the rows indicate the current state.  
   
+> **NOTE:** The above definitions were cumulatively drawn from the following sources ^[Lay, David C. 2012. “Applications to Markov Chains.” In Linear Algebra and Its Applications, 4th ed., 253–62. Boston: Pearson College Division.] ^[https://setosa.io/ev/markov-chains/]
+  
 \
   
 ### Visualizations {-}  
@@ -220,7 +221,6 @@ $$P(X_{n+1} = x_{n+1}|X_1 = x_1, \dots,  X_{n-1}= x_{n-1}, X_n= x_{n}) = P(X_{n+
 **Weather Graphs**
 
 Below we've redefined our weather example as a Markov Chain, using our new definitions, and place it into a Weighted Directed Graph. Isn't she pretty! Note that the *weights* on our arrows correspond to the transition probability associated with that change-arrow. 
-
 
 ![](images/HMM_Diagram_Intuition.png)
 
@@ -342,7 +342,7 @@ anim2
 ```
 Look at that! We converged on our initial probability distribution. That isn't necessarily true for all simulations, but it's true for this one.
 
-> **NOTE:** This Markov Chain visualization was designed by [Will Hipson](https://willhipson.netlify.app), a graduate student in Psychology at Carleton University. You can find links for reproduction at [his page](https://willhipson.netlify.app/post/markov-sim/markov_chain/) or check out my GitHub to see my edits.
+> **NOTE:** This Markov Chain visualization was designed by [Will Hipson](https://willhipson.netlify.app), a graduate student in Psychology at Carleton University. You can find links for reproduction at his page^[https://willhipson.netlify.app/post/markov-sim/markov_chain/] or check out my GitHub to see my edits.
  
 
 \
@@ -356,20 +356,7 @@ We've covered the necessary probability concepts. In the next section, we'll fin
 If you have any lingering questions, I've linked some great YouTube videos that may be helpful below.
 
 
-### References {-}
-
-Hipson, Will. 2020. “Visualizing A Markov Chain.” Will Hipson’s Personal Website. March 23, 2020. https://willhipson.netlify.app/post/markov-sim/markov_chain/.
-
-Johnson, Alicia, Miles Ott, and Mine Dogucu. 2020. “Bayes’ Rule.” In  Bayes Rules! An Introduction to Bayesian Modeling with R . https://www.bayesrulesbook.com.
-
-Kang, Eugine. 2017. “Hidden Markov Model.” Medium. August 31, 2017. https://medium.com/@kangeugine/hidden-markov-model-7681c22f5b9.
-
-Lay, David C. 2012. “Applications to Markov Chains.” In Linear Algebra and Its Applications, 4th ed., 253–62. Boston: Pearson College Division.
-
-Powell, Victor, and Lewis Lehe. 2014. “Markov Chains Explained Visually.” Explained Visually. November 7, 2014. https://setosa.io/ev/markov-chains/.
-
-
-### Video Resources {-}
+## Video Resources {-}
 
 **Conditional Probability**
 
@@ -392,3 +379,9 @@ Powell, Victor, and Lewis Lehe. 2014. “Markov Chains Explained Visually.” Ex
 <iframe width="280" height="157.5" src="https://www.youtube.com/embed/JHwyHIz6a8A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
 </center>
+
+
+
+
+## References {-}
+
