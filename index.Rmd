@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align 
 
 # Welcome {-}
 
-This is bookdown on discrete Hidden Markov Models & their applications to biostatistics is my capstone! I made this for my Mathematical Statistics course taught by [Kelsey Grinde](http://kegrinde.github.io). Big thanks to her for her guidance and help.
+This bookdown on discrete Hidden Markov Models & their applications to statistical genetics is my capstone! I made this for my Mathematical Statistics course taught by [Kelsey Grinde](http://kegrinde.github.io). Big thanks to her for her guidance and help.
 
 Content was written and gathered by [Freddy Barragan](https://freddybarragan.netlify.app) with appropriate citations for print materials. Wherever possible, I try to provide direct link citations for any digital materials or resources. 
 
