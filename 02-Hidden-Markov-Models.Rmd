@@ -202,7 +202,7 @@ df_long2 <- df_long2 %>%
   ))
 library(openxlsx)
 #write.xlsx(df_long2, file = "/Users/freddy/Desktop/df_long2.xlsx")
-df_long2 <- read.xlsx("/Users/freddy/Desktop/df_long2_standard.xlsx")
+df_long2 <- read.xlsx("data/df_long2_standard.xlsx")
 
 anim2 <- df_long2 %>%
   plot_ly(
