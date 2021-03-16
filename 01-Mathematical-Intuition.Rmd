@@ -10,7 +10,7 @@ Markov Chains are cool! Hidden Markov Models are also cool, but require more pre
 
 ### Basic Concepts {-}
 
-Probability, as a field, formalizes how we predict events with some equally beautiful & ugly notation, inutitive concepts, and complex mathematical principles. But the premise is simple: by ascribing a numeric value to the outcomes of an event happening, we can abstract the real-world and study it with math. 
+Probability, as a field, formalizes how we predict events with some equally beautiful & ugly notation, intuitive concepts, and complex mathematical principles. But the premise is simple: by ascribing a numeric value to the outcomes of an event happening, we can abstract the real-world and study it with math. 
 
 The process of ascribing numeric values to the outcome of an event is called a mapping & by mapping all possible probabilities of an event's outcomes we create a **random variable**.
 
