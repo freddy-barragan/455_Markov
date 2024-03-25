@@ -6,14 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics</title>
   <meta name="description" content="Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics" />
   <meta property="og:type" content="book" />
   
   
-  
-  <meta name="github-repo" content="freddy-barragan/455_Markov" />
+  <meta name="github-repo" content="sofiabarragan/455_Markov" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Application to Statistical Genetics | Hidden Markov Models &amp; their Applications to Statistical Genetics" />
@@ -21,7 +20,7 @@
   
   
 
-<meta name="author" content="Freddy Barragan, Spring 2021, Macalester College" />
+<meta name="author" content="Sofia Barragan, Spring 2021, Macalester College" />
 
 
 
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="frog-families-hmms.html"/>
 
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +48,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -135,41 +141,41 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="application-to-statistical-genetics" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Application to Statistical Genetics</h1>
-<p>The goals of epidemiology explicitly revolve around studying the incidence, distribution, and control of disease. As one can imagine, the boundaries of the field are highly nebulous. So far, we’ve looked at Hidden Markov Models as mathematical objects, devoid of any real context— aside from a toy frog example. This section intends to tie together the mathematical principals of HMMs with their connections to big areas in biostatistical &amp; epidemiological research. We find that, yes, HMMs <em>are</em> cool because they can help save lives, bridge the gaps across survival disparities, and study our bodies.</p>
+<div id="application-to-statistical-genetics" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Application to Statistical Genetics<a href="application-to-statistical-genetics.html#application-to-statistical-genetics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The goals of epidemiology explicitly revolve around studying the incidence, distribution, and control of disease. As one can imagine, the boundaries of the field are highly nebulous. So far, we’ve looked at Hidden Markov Models as mathematical objects devoid of any real context— aside from a toy frog example. This section intends to tie together the mathematical principles of HMMs with their connections to big areas in biostatistical &amp; epidemiological research. We find that, yes, HMMs <em>are</em> cool because they can help save lives, bridge the gaps across survival disparities, and study our bodies.</p>
 <p><br />
 </p>
 <hr />
-<div id="local-ancestry-inference" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Local Ancestry Inference</h2>
-<p>Local Ancestry Inference (LAI) is an approach in statistical genetics &amp; bioinformatics that aims to study genetic diversity, disease prevalence, or evolutionary development by linking each segment of a genome to some ancestral population<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. LAI can been used to study crop plant analysis<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Tilapia breeding<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, and the genetic adaptations of cows in East Africa<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. However, using LAI in public health studies is a critically important step, when studying ethnically-diverse cohorts.</p>
-<p>Diasporic movement, mass-migration, colonial empire, and slavery have profoundly changed the genetic landscape of the human population. Prior to these <em>admixture events</em>, human communities were largely isolated from each other and overtime, these isolated communities genetically diverged into human sub-populations. The differences between sub-populations are largely minuscule. And while the differences are mostly nonexistent, generations of independent breeding did allow for the development of genes &amp; mutations which are more common in some sub-populations rather than others<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<div id="local-ancestry-inference" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Local Ancestry Inference<a href="application-to-statistical-genetics.html#local-ancestry-inference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Local Ancestry Inference (LAI) is an approach in statistical genetics &amp; bioinformatics that aims to study genetic diversity, disease prevalence, or evolutionary development by linking each segment of a genome to some ancestral population<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. LAI has been used to study crop plant analysis<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Tilapia breeding<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, and the genetic adaptations of cows in East Africa<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. However, using LAI in public health studies is a critically important step when studying ethnically diverse cohorts.</p>
+<p>Diasporic movement, mass migration, colonial empire, and slavery have profoundly changed the genetic landscape of the human population. Prior to these <em>admixture events</em>, human communities were largely isolated from each other, and over time, these isolated communities genetically diverged into human sub-populations. The differences between sub-populations are largely minuscule. While the differences are mostly nonexistent, generations of independent breeding did allow for the development of genes &amp; mutations that are more common in some sub-populations rather than others<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
 <blockquote>
 <p><strong>NOTE:</strong> Ancestry &amp; Race are two different concepts that do not measure the same thing in the same way.</p>
 </blockquote>
-<p>Admixed populations are products of the intense migratory &amp; diasporic events which marked the 14th-19th centuries, which resulted in populations whose genetic ancestries were from 2 or more human sub-populations. We call these ancestrally-mixed populations <strong>admixed</strong> populations. Notable examples of admixed populations include African Americans, Latines, Ashkenazi Jews, and SWANA peoples. However, admixture is everpresent across most global populations. For example, this plot made by Hodgson et al. shows the admixture proportion across 81 different African populations with colorings for 10, 11, and 12 respective common ancestries.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<p>Admixed populations are products of the intense migratory &amp; diasporic events that marked the 14th-19th centuries, which resulted in populations whose genetic ancestries were from 2 or more human sub-populations. We call these ancestrally-mixed populations <strong>admixed</strong> populations. Notable examples of admixed populations include African Americans, Latines, Ashkenazi Jews, and SWANA peoples. However, admixture is everpresent across most global populations. For example, this plot made by Hodgson et al. shows the admixture proportion across 81 different African populations with colorings for 10, 11, and 12 respective common ancestries <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
 <p><br />
 </p>
 <center>
-<div class="figure">
-<img src="images/map.png" alt="" />
-<p class="caption">Figure 1. Admixture proportions of Horn of Africa populations (Hodgson et al.)</p>
+<div class="float">
+<img src="images/map.png" alt="Figure 1. Admixture proportions of Horn of Africa populations (Hodgson et al.)" />
+<div class="figcaption">Figure 1. Admixture proportions of Horn of Africa populations (Hodgson et al.)</div>
 </div>
 </center>
 <p><br />
 </p>
-<p>Unfortunately, the violence of diaspora, colonialism, and enslavement also brought the dangers of inheriting potentially dangerous mutations by family, ancestry, or ethnicity. For example, the inheritance of Tay-Sachs, Ellis-van Creveld Syndrome, diabetes, prostate cancer all occur with strong associations to ancestry<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
+<p>Unfortunately, the violence of diaspora, colonialism, and enslavement also brought the dangers of inheriting potentially dangerous mutations by family, ancestry, or ethnicity. For example, the inheritance of Tay-Sachs, Ellis-van Creveld Syndrome, diabetes, and prostate cancer all occur with strong associations to ancestry<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
 <p>So, when studying disease with evidence of some ancestral association, LAI allows public researchers to first map the ancestry of an individual’s genome, before going on to find associations between disease &amp; ancestral lineage.</p>
-<div id="local-ancestry" class="section level3 unnumbered">
-<h3>Local Ancestry</h3>
-<p>Local Ancestry is formally defined as “the genetic ancestry of an individual at a particular chromosomal location, where an individual can have 0, 1 or 2 copies of an allele derived from each ancestral population.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>”</p>
-<p>Due to the structure of gene inheritance, we can model local ancestry as a Hidden Markov Model, with the observed! This idea has been formalized throughout literature on statistical genetics, but we will look at one particular approach of using HMMs in the software HAPMIX to infer local ancestry in admixed populations.</p>
+<div id="local-ancestry" class="section level3 unnumbered hasAnchor">
+<h3>Local Ancestry<a href="application-to-statistical-genetics.html#local-ancestry" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Local Ancestry is formally defined as “the genetic ancestry of an individual at a particular chromosomal location, where an individual can have 0, 1, or 2 copies of an allele derived from each ancestral population.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>”</p>
+<p>Due to the structure of gene inheritance, we can model local ancestry as a Hidden Markov Model, with the observed! This idea has been formalized throughout the literature on statistical genetics, but we will look at one particular approach of using HMMs in the software HAPMIX to infer local ancestry in admixed populations.</p>
 </div>
-<div id="hapmix" class="section level3 unnumbered">
-<h3>HAPMIX</h3>
+<div id="hapmix" class="section level3 unnumbered hasAnchor">
+<h3>HAPMIX<a href="application-to-statistical-genetics.html#hapmix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <blockquote>
-<p><strong>NOTE:</strong> Most content in this section originates from HAPMIX’s official release paper by Price et al<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
+<p><strong>NOTE:</strong> Most content in this section originates from HAPMIX’s official release paper by Price et al.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
 </blockquote>
 <p><strong>Definitions</strong></p>
 <ul>
@@ -184,35 +190,35 @@
 <p><strong>Process</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>At every locus, HAPMIX estimates the likelihood that a “parental” haplotype from an admixed individual comes from a referenced ancestral population.</p></li>
-<li><p>Loci that are next to each other are more likely to come from the same ancestral lineage<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, but that doesn’t hold true after enough positions. So, we say that the number of genes inherited from an ancestral population at the <span class="math inline">\(j^th\)</span> locus, can be strictly predicted by the ancestry of the <span class="math inline">\({j-1}^{th}\)</span> locus.</p></li>
-<li><p>We can then use a HMM where the hidden states are the number of ancestral genes inherited <span class="math inline">\((0,1,2)\)</span> at locus <span class="math inline">\(j\)</span> and the observations are the likelihoods of observing some mutation at locus <span class="math inline">\(j\)</span>, given the ancestral reference panel.</p></li>
-<li><p>Using a smoother analysis, similar to the Forward-Backward Algorithm, we can combine these likelihoods into to provide a probabilistic estimate of ancestry at each locus.</p></li>
+<li><p>Loci that are next to each other are more likely to come from the same ancestral lineage<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, but that doesn’t hold true after enough positions. So, we say that the number of genes inherited from an ancestral population at the <span class="math inline">\(j^th\)</span> locus can be strictly predicted by the ancestry of the <span class="math inline">\({j-1}^{th}\)</span> locus.</p></li>
+<li><p>We can then use an HMM where the hidden states are the number of ancestral genes inherited <span class="math inline">\((0,1,2)\)</span> at locus <span class="math inline">\(j\)</span>, and the observations are the likelihoods of observing some mutation at locus <span class="math inline">\(j\)</span>, given the ancestral reference panel.</p></li>
+<li><p>Using a smoother analysis, similar to the Forward-Backward Algorithm, we can combine these likelihoods to provide a probabilistic estimate of ancestry at each locus.</p></li>
 </ol>
 <p><strong>Visual</strong></p>
 <p>Below is a visual made by Price et al. describing the HMM employed in HAPMIX.</p>
 <center>
-<div class="figure">
-<img src="images/hapmix.png" alt="" />
-<p class="caption">Fig 2. Markov Schematic (Price et al.)</p>
+<div class="float">
+<img src="images/hapmix.png" alt="Fig 2. Markov Schematic (Price et al.)" />
+<div class="figcaption">Fig 2. Markov Schematic (Price et al.)</div>
 </div>
 </center>
 <ul>
-<li>The thick bottom bar represents the true 2-state ancestral composition of an individual, the dotted line above it represents the ancestral reference panel, from which we compute likelihoods.</li>
+<li>The thick bottom bar represents the true 2-state ancestral composition of an individual, and the dotted line above it represents the ancestral reference panel, from which we compute likelihoods.</li>
 <li>The line line represents a chromosomal segment of an individual, while the black circles represent typed mutations sites that can be distinguished between the ancestries.</li>
 <li>When the yellow line crosses a red or blue line, it is visualizing the selection of an ancestral group, given the individual’s observed chromosome. Notice that when the line crosses through a dot on one particular side, it will choose the side with equal or greater dots that are vertically aligned.</li>
-<li>The yellow line can misclassify the ancestries, since this is a probabilistic model. Notice the portion of blue dots above the red bar.</li>
+<li>The yellow line can misclassify the ancestries since this is a probabilistic model. Notice the portion of blue dots above the red bar.</li>
 </ul>
 </div>
-<div id="conclusion-2" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Conclusion</h3>
+<div id="conclusion-2" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Conclusion<a href="application-to-statistical-genetics.html#conclusion-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>LAI is only one application of HMMs. Variations of HMMs can be used to study the differential use of condoms for HIV prevention<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, the race-differences in the progression of HIV for vulnerable, infected, and AIDS positive people between African American &amp; White People<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>, or even when automatically monitoring the development of Influenza outbreaks<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
 <p>This is only a primer (with a de-emphasis on application), but I absolutely suggest reading through the footnote references to so how cool HMMs become when using them to find ways of helping people, treating illness, and more!</p>
 <p><br />
 </p>
 </div>
 </div>
-<div id="references-2" class="section level2 unnumbered">
-<h2>References</h2>
+<div id="references-2" class="section level2 unnumbered hasAnchor">
+<h2>References<a href="application-to-statistical-genetics.html#references-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
@@ -262,7 +268,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -281,6 +286,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -301,6 +307,10 @@ gitbook.start({
 "text": null
 },
 "download": ["455_Markov.pdf", "455_Markov.html"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -314,7 +324,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
